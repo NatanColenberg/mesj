@@ -1,0 +1,15 @@
+.App {
+  text-align: center;
+  display: flex;
+  height: 100vh;
+  justify-content: stretch;
+  align-items: stretch;
+}
+
+.left {
+  border-right: 5px solid black;
+  flex: 1;
+}
+.right {
+  flex: 4;
+}
