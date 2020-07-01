@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import io from "socket.io-client";
 import "./connection.css";
 
 import { TextField, Button } from "@material-ui/core";
@@ -8,13 +7,6 @@ export default function Connection() {
   const [userName, SetUserName] = useState("");
 
   const connect = () => {
-    // const socket = io("http://localhost", {
-    //   path: "/ws",
-    //   reconnectionAttempts: 3,
-    //   reconnectionDelay: 1000,
-    //   port: "8080",
-    // });
-    // console.log("socket.connected: ", socket.connected);
 
     const socket = new WebSocket("ws://localhost:8080/ws");
     console.log("Attempting Connection...");
@@ -30,6 +22,15 @@ export default function Connection() {
 
     socket.onerror = (err) => {
       console.log("Socket Error: ", err);
+    };
+
+    socket.onmessage = (mesEvt) => {
+      console.log(mesEvt.data);
+      setTimeout(() => {
+        socket.send(mesEvt.data);
+      }, 3000);
+
+      return false;
     };
   };
   return (
